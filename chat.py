@@ -21,6 +21,7 @@ def main(args):
                 break
             if text == "clear":
                 history = []
+                continue
             history += tokenizer(input_pattern.format(text)).input_ids
             history = history[-args.history_max_tokens:]
             input_ids = torch.tensor([history], device=device)

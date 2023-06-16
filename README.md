@@ -2,9 +2,9 @@
 
 ## News
 
-- 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat]() 
+- 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat) 
 
-- 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat]()  
+- 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)  
 
 - 开源全量参数训练、LoRA 和 QLoRA 训练代码。
 
@@ -14,9 +14,9 @@ LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型�
 
 我们从 MOSS 项目开源的中英文指令微调数据集 [moss-003-sft-data](https://huggingface.co/datasets/fnlp/moss-003-sft-data) 中抽取 12w 条多轮对话数据作为训练数据，分别：
 
-- 以 [词表裁剪后的 bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 为基座，全量参数微调得到 [bloom-3b-moss-chat]()
+- 以词表裁剪后的 [bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 为基座，全量参数微调得到 [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat)
 
-- 以 [词表裁剪后的 bloomz-7b1-mt](https://huggingface.co/YeungNLP/bloomz-6b4-mt-zh) 为基座，使用 QLoRA 技术微调得到 [bloomz-7b1-qlora-moss-chat]()
+- 以词表裁剪后的 [bloomz-7b1-mt](https://huggingface.co/YeungNLP/bloomz-6b4-mt-zh) 为基座，使用 QLoRA 技术微调得到 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)
 
 ## Requirements
 

@@ -98,7 +98,7 @@ deepspeed --include localhost:0 train.py \
 
 [LoRA](https://github.com/microsoft/LoRA) 的核心思想是冻结预训练模型权重，将可训练的秩分解矩阵注入 Transformer 架构的每一层，从而大大减少了下游任务的微调参数量。
 
-<img src="images/lora1.png" width="400">
+<img src="images/lora1.png" width="300">
 
 LoRA 的实现流程概述如下：
 

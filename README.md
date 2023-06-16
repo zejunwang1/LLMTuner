@@ -210,13 +210,6 @@ python chat.py \
 
 
 
-
-
-
-
-
-<details><summary><b>多轮对话</b></summary>
-
 #### bloomz-7b1-qlora-moss-chat
 
 命令行单轮对话：
@@ -234,9 +227,7 @@ python chat_qlora.py \
 
 添加 `--multi_round` 可开启多轮对话。需要注意的是，bloomz-7b1-qlora-moss-chat 的基座为词表裁剪后的 bloomz-7b1-mt 模型。
 
-<details><summary><b>单轮对话</b></summary>
 
-<details><summary><b>多轮对话</b></summary>
 
 ## 参考链接
 

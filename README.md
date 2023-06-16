@@ -2,9 +2,9 @@
 
 ## News
 
-- 开源在 12w 条多轮对话数据上全量参数微调得到的 bloom-3b-moss-chat 
+- 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat]() 
 
-- 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 bloomz-7b1-qlora-moss-chat  
+- 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat]()  
 
 - 开源全量参数训练、LoRA 和 QLoRA 训练代码。
 
@@ -14,9 +14,9 @@ LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型�
 
 我们从 MOSS 项目开源的中英文指令微调数据集 [moss-003-sft-data](https://huggingface.co/datasets/fnlp/moss-003-sft-data) 中抽取 12w 条多轮对话数据作为训练数据，分别：
 
-- 以词表裁剪后的 bloom-3b 为基座，全量参数微调得到 bloom-3b-moss-chat
+- 以 [词表裁剪后的 bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 为基座，全量参数微调得到 [bloom-3b-moss-chat]()
 
-- 以词表裁剪后的 bloomz-7b1-mt 为基座，使用 QLoRA 技术微调得到 bloomz-7b1-qlora-moss-chat
+- 以 [词表裁剪后的 bloomz-7b1-mt](https://huggingface.co/YeungNLP/bloomz-6b4-mt-zh) 为基座，使用 QLoRA 技术微调得到 [bloomz-7b1-qlora-moss-chat]()
 
 ## Requirements
 
@@ -90,7 +90,7 @@ deepspeed --include localhost:0 train.py \
     --deepspeed data/deepspeed.json
 ```
 
-设置 `max_length=1024, batch_size=16, bf16=True`，单卡需要约 45G 显存对 [词表裁剪后的 bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 基座进行全量参数微调，在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
+设置 `max_length=1024, batch_size=16, bf16=True`，单卡需要约 45G 显存对词表裁剪后的 bloom-3b 基座进行全量参数微调，在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
 <img src="images/ds_loss.png" width="500">
 
@@ -180,7 +180,7 @@ python train_qlora.py \
     --quant_type "nf4"
 ```
 
-以 [词表裁剪后的 bloomz-7b1-mt](https://huggingface.co/YeungNLP/bloomz-6b4-mt-zh) 为基座，在上面参数配置下，单卡仅需要约 12G 显存便可进行 QLoRA 微调。由于 QLoRA 在所有的全连接层处都插入了 Adapter，相同 `lora_r=64` 下其可训练的参数量多于 LoRA：
+以词表裁剪后的 bloomz-7b1-mt 为基座，在上面参数配置下，单卡仅需要约 12G 显存便可进行 QLoRA 微调。由于 QLoRA 在所有的全连接层处都插入了 Adapter，相同 `lora_r=64` 下其可训练的参数量多于 LoRA：
 
 ```
 trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714584568694685
@@ -207,7 +207,16 @@ python chat.py \
 
 添加 `--multi_round` 可开启多轮对话。
 
+<details><summary><b>古诗、对联、文言文</b></summary>
 
+| 输入                                                                                                                                                                | 输出                                                                                                                                          |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| 以春天为题目，帮我写一首古诗，要求包含燕子、春风、柳树等元素，古诗：                                                                                                                                | 春风吹拂燕归来，<br>柳枝摇曳舞翩跹。<br>花开满园香气溢，<br>鸟语声中乐无边。                                                                                                |
+| 以咏梅为题目，帮我写一首古诗，要求包含梅花、白雪等元素。古诗：                                                                                                                                   | 白雪纷纷落，<br>梅花含笑开。<br>清香扑鼻来，<br>素雅动人心。<br>枝头挂冰玉，<br>叶上缀珠玑。<br>寒冬不凋零，<br>春风又何妨？<br>此情谁能识，<br>惟愿君知晓。                                            |
+|我要与朋友分别了，请你写一首古诗，表达我的离别之情。|好的，我将为您创作一首关于离别的诗歌。<br>离别情深似海潮，<br>相思难耐泪涟涟。<br>天涯何处觅知音？<br>唯有明月共清辉|
+| 背诵苏轼的《水调歌头·明月几时》                                                                                                                                                  | 明月几时有，把酒问青天。不知天上宫阙，今夕是何年？我欲乘风归去，又恐琼楼玉宇，高处不胜寒；起舞弄清影，何似在人间！转朱阁，低绮户，照无眠。不应有恨，何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。                          |
+
+</details>
 
 
 #### bloomz-7b1-qlora-moss-chat

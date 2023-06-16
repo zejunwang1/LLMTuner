@@ -92,9 +92,13 @@ deepspeed --include localhost:0 train.py \
 
 设置 `max_length=1024, batch_size=16, bf16=True`，单卡需要约 45G 显存对 [词表裁剪后的 bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 基座进行全量参数微调，在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
+<img src="images/ds_loss.png" width="500">
+
 ## LoRA
 
 [LoRA](https://github.com/microsoft/LoRA) 的核心思想是冻结预训练模型权重，将可训练的秩分解矩阵注入 Transformer 架构的每一层，从而大大减少了下游任务的微调参数量。
+
+<img src="images/lora1.png" width="400">
 
 LoRA 的实现流程概述如下：
 
@@ -142,6 +146,8 @@ trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.50236
 
 [QLoRA](https://github.com/artidoro/qlora) 是一种高效的微调方法，可以在保持完整的16位微调任务性能下，实现单个 48GB GPU 上微调 65B 参数量模型。QLoRA 通过冻结的 4-bit 量化预训练语言模型向低秩适配器(LoRA) 反向传播梯度。使用 4-bit NormalFloat (NF4) 量化、Double Quantization、Paged Optimizers、所有 Linear 层插入 adapter 等技术，QLoRA 在不牺牲性能的情况下大大节省了显存占用。
 
+<img src="images/qlora.png" width="500">
+
 使用 QLoRA 进行单卡训练：
 
 ```shell
@@ -181,6 +187,8 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 ```
 
 在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
+
+<img src="images/qlora_loss.png" width="500">
 
 ## 生成效果
 

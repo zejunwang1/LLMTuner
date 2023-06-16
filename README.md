@@ -92,7 +92,7 @@ deepspeed --include localhost:0 train.py \
 
 设置 `max_length=1024, batch_size=16, bf16=True`，单卡需要约 45G 显存对 [词表裁剪后的 bloom-3b](https://huggingface.co/YeungNLP/bloom-2b6-zh) 基座进行全量参数微调，在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
-<img src="images/ds_loss.png" width="500">
+<img align="center" src="images/ds_loss.png" width="700">
 
 ## LoRA
 

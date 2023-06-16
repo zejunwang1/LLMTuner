@@ -146,7 +146,7 @@ trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.50236
 
 [QLoRA](https://github.com/artidoro/qlora) 是一种高效的微调方法，可以在保持完整的16位微调任务性能下，实现单个 48GB GPU 上微调 65B 参数量模型。QLoRA 通过冻结的 4-bit 量化预训练语言模型向低秩适配器(LoRA) 反向传播梯度。使用 4-bit NormalFloat (NF4) 量化、Double Quantization、Paged Optimizers、所有 Linear 层插入 adapter 等技术，QLoRA 在不牺牲性能的情况下大大节省了显存占用。
 
-<img src="images/qlora.png" width="500">
+<img src="images/qlora.png" width="600">
 
 使用 QLoRA 进行单卡训练：
 
@@ -188,7 +188,7 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 
 在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
-<img src="images/qlora_loss.png" width="500">
+<img src="images/qlora_loss.png" width="600">
 
 ## 生成效果
 

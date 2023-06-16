@@ -192,7 +192,7 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 
 ## 生成效果
 
-#### bloom-3b-moss-chat
+#### [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat)
 
 命令行单轮对话：
 
@@ -219,7 +219,7 @@ python chat.py \
 </details>
 
 
-#### bloomz-7b1-qlora-moss-chat
+#### [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)
 
 命令行单轮对话：
 

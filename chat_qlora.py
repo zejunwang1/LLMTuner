@@ -10,8 +10,9 @@ def main(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name_or_path, 
+        #load_in_4bit=True,
         low_cpu_mem_usage=True,
-        torch_dtype=torch.float16
+        torch_dtype=torch.bfloat16
     )
     model = PeftModel.from_pretrained(model, args.adapter_name_or_path)
     model.to(device)

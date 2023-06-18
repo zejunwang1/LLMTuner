@@ -2,11 +2,11 @@
 
 ## News
 
-- [2023/06/17] 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat) 
+- [2023/06/16] 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat) 
 
-- [2023/06/17] 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)  
+- [2023/06/16] 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)  
 
-- [2023/06/17] 开源全量参数训练、LoRA 和 QLoRA 训练代码。
+- [2023/06/16] 开源全量参数训练、LoRA 和 QLoRA 训练代码。
 
 ## 项目简介
 

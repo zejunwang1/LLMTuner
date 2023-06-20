@@ -2,6 +2,8 @@
 
 ## News
 
+- [2023/06/20] QLoRA 微调过程中的显存占用分析
+
 - [2023/06/16] 开源在 12w 条多轮对话数据上全量参数微调得到的 [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat) 
 
 - [2023/06/16] 使用 QLoRA 技术，在 12w 条多轮对话数据上微调得到的 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)  
@@ -194,6 +196,21 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
 <img src="images/qlora_loss.png" width="500">
+
+## 显存分析
+
+使用 QLoRA 微调词表裁剪后的 bloomz-7b1-mt 基座，不同配置下需要的显存资源如下：
+
+| lora_r | max_length | gradient_checkpointing | memory |
+| ------ | ---------- | ---------------------- | ------ |
+| 32     | 512        | true                   | 6G     |
+| 32     | 512        | false                  | 12G    |
+| 32     | 1024       | true                   | 7G     |
+| 32     | 1024       | false                  | 21G    |
+| 64     | 512        | true                   | 7G     |
+| 64     | 512        | false                  | 13G    |
+| 64     | 1024       | true                   | 8G     |
+| 64     | 1024       | false                  | 22G    |
 
 ## 生成效果
 

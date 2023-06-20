@@ -199,7 +199,7 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 
 ## 显存分析
 
-使用 QLoRA 微调词表裁剪后的 bloomz-7b1-mt 基座，不同配置下需要的显存资源如下：
+使用 QLoRA 微调词表裁剪后的 bloomz-7b1-mt 基座，NF4 和双量化策略下不同配置需要的显存资源如下：
 
 | lora_r | max_length | gradient_checkpointing | memory |
 | ------ | ---------- | ---------------------- | ------ |

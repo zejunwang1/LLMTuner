@@ -212,7 +212,6 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 | 64     | 1024       | true                   | 8G     |
 | 64     | 1024       | false                  | 22G    |
 
-可以看出，`per_device_train_batch_size=1, lora_r=64, max_length=1024, gradient_checkpointing=True` 的配置下，单卡仅需要 8G 显存便可对 7B 参数量的基座模型进行微调。
 
 ## 生成效果
 

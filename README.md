@@ -1,4 +1,4 @@
-# LLMTuner: 大语言模型指令调优工具（支持全量参数微调、LoRA 和 QLoRA）
+# 😄 LLMTuner: 大语言模型指令调优工具（支持全量参数微调、LoRA 和 QLoRA）
 
 ## 🔄 News
 
@@ -380,7 +380,7 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
 </details>
 
 
-## 参考链接
+## 📖 参考链接
 
 - [Firefly(流萤): 中文对话式大语言模型](https://github.com/yangjianxin1/Firefly)
 

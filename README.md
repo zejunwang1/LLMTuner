@@ -1,7 +1,5 @@
 # 😄 LLMTuner: 大语言模型指令调优工具（支持全量参数微调、LoRA 和 QLoRA）
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
-
 ## 🔄 News
 
 - [2023/06/20] QLoRA 微调过程中的显存占用分析
@@ -408,7 +406,5 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
   howpublished = {\url{https://github.com/zejunwang1/LLMTuner}}
 }
 ```
-
-## ⭐️ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)

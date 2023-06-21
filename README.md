@@ -212,6 +212,8 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 | 64     | 1024       | true                   | 8G     |
 | 64     | 1024       | false                  | 22G    |
 
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
 
 ## 📚 生成效果
 
@@ -392,8 +394,6 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
 
 - [MOSS: An open-source tool-augmented conversational language model from Fudan University](https://github.com/OpenLMLab/MOSS) 
 
-
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
 
 ## 📌 引用
 

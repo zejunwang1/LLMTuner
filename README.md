@@ -66,6 +66,9 @@ pip install -U -r requirements.txt
 }
 ```
 
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
+
 ## 🚀 全量参数微调
 
 基于 DeepSpeed ZeRO Stage 3 的单卡训练：
@@ -211,8 +214,6 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 | 64     | 512        | false                  | 13G    |
 | 64     | 1024       | true                   | 8G     |
 | 64     | 1024       | false                  | 22G    |
-
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
 
 
 ## 📚 生成效果

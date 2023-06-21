@@ -66,9 +66,6 @@ pip install -U -r requirements.txt
 }
 ```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
-
-
 ## 🚀 全量参数微调
 
 基于 DeepSpeed ZeRO Stage 3 的单卡训练：
@@ -97,7 +94,12 @@ deepspeed --include localhost:0 train.py \
 
 设置 `max_length=1024, batch_size=16, bf16=True`，单卡需要约 45G 显存对词表裁剪后的 bloom-3b 基座进行全量参数微调，在 12w 多轮对话数据集上训练了一个 epoch（大约 8000 steps），训练过程中的 loss 变化如下：
 
+<div>
 <img src="images/ds_loss.png" width="500">
+</div>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
 
 ## 🚀 LoRA
 

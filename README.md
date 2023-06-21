@@ -1,6 +1,6 @@
 # LLMTuner: 大语言模型指令调优工具（支持全量参数微调、LoRA 和 QLoRA）
 
-## News
+## 🔄 News
 
 - [2023/06/20] QLoRA 微调过程中的显存占用分析
 
@@ -10,7 +10,7 @@
 
 - [2023/06/16] 开源全量参数训练、LoRA 和 QLoRA 训练代码。
 
-## 项目简介
+## 📝 项目简介
 
 LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型指令调优工具。在训练中可以结合词表裁剪、DeepSpeed-ZeRO、gradient checkpointing、4-bit 量化等技术，有效降低显存占用，实现在单张消费级显卡上微调 7B/13B/33B 大模型。
 
@@ -20,7 +20,7 @@ LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型�
 
 - 以词表裁剪后的 [bloomz-7b1-mt](https://huggingface.co/YeungNLP/bloomz-6b4-mt-zh) 为基座，使用 QLoRA 技术微调得到 [bloomz-7b1-qlora-moss-chat](https://huggingface.co/WangZeJun/bloomz-7b1-qlora-moss-chat)
 
-## Requirements
+## 📫 Requirements
 
 - bitsandbytes==0.39.0
 
@@ -36,7 +36,7 @@ LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型�
 pip install -U -r requirements.txt
 ```
 
-## 训练数据
+## 📊 训练数据
 
 训练数据中的单条指令需要预处理为如下形式：
 
@@ -66,7 +66,7 @@ pip install -U -r requirements.txt
 }
 ```
 
-## 全量参数微调
+## 🚀 全量参数微调
 
 基于 DeepSpeed ZeRO Stage 3 的单卡训练：
 
@@ -96,7 +96,7 @@ deepspeed --include localhost:0 train.py \
 
 <img src="images/ds_loss.png" width="500">
 
-## LoRA
+## 🚀 LoRA
 
 [LoRA](https://github.com/microsoft/LoRA) 的核心思想是冻结预训练模型权重，将可训练的秩分解矩阵注入 Transformer 架构的每一层，从而大大减少了下游任务的微调参数量。
 
@@ -144,7 +144,7 @@ python train_lora.py \
 trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.5023616886417199
 ```
 
-## QLoRA
+## 🚀 QLoRA
 
 [QLoRA](https://github.com/artidoro/qlora) 是一种高效的微调方法，可以在保持完整的16位微调任务性能下，实现单个 48GB GPU 上微调 65B 参数量模型。QLoRA 通过冻结的 4-bit 量化预训练语言模型向低秩适配器(LoRA) 反向传播梯度。使用 4-bit NormalFloat (NF4) 量化、Double Quantization、Paged Optimizers、所有 Linear 层插入 adapter 等技术，QLoRA 在不牺牲性能的情况下大大节省了显存占用。具体说明如下：
 
@@ -197,7 +197,7 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 
 <img src="images/qlora_loss.png" width="500">
 
-## 显存分析
+## 🚀 显存分析
 
 使用 QLoRA 微调词表裁剪后的 bloomz-7b1-mt 基座，NF4 和双量化策略下不同配置需要的显存资源如下：
 
@@ -392,7 +392,7 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
 
 - [MOSS: An open-source tool-augmented conversational language model from Fudan University](https://github.com/OpenLMLab/MOSS) 
 
-## 引用
+## 📌 引用
 
 若使用本项目的代码或模型，请引用本项目。
 

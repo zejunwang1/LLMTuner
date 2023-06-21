@@ -409,7 +409,5 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
 
 ## ⭐️ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
-
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwX1dubzlwdU9WYlRiS3JJcjV3UExWcjRCUGJUdUx6SDQ2b0U3aA==#zejunwang1/LLMTuner&Date" frameBorder="0"></iframe>
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/embed?secret=Z2hwX1dubzlwdU9WYlRiS3JJcjV3UExWcjRCUGJUdUx6SDQ2b0U3aA==#zejunwang1/LLMTuner&Date)
 

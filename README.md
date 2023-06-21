@@ -213,7 +213,7 @@ trainable params: 125,829,120 || all params: 3,336,351,744 || trainable%: 3.7714
 | 64     | 1024       | false                  | 22G    |
 
 
-## 生成效果
+## 📚 生成效果
 
 #### [bloom-3b-moss-chat](https://huggingface.co/WangZeJun/bloom-3b-moss-chat)
 
@@ -406,3 +406,7 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
   howpublished = {\url{https://github.com/zejunwang1/LLMTuner}}
 }
 ```
+
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)

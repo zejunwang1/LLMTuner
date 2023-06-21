@@ -406,3 +406,7 @@ Assistant: 不客气，很高兴为你提供帮助。祝你早日取得进步！
   howpublished = {\url{https://github.com/zejunwang1/LLMTuner}}
 }
 ```
+
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=LianjiaTech/BELLE&type=Date)](https://star-history.com/#LianjiaTech/BELLE&Date)

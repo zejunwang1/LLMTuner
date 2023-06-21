@@ -96,10 +96,6 @@ deepspeed --include localhost:0 train.py \
 
 <img src="images/ds_loss.png" width="500">
 
-
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
-
-
 ## 🚀 LoRA
 
 [LoRA](https://github.com/microsoft/LoRA) 的核心思想是冻结预训练模型权重，将可训练的秩分解矩阵注入 Transformer 架构的每一层，从而大大减少了下游任务的微调参数量。
@@ -147,6 +143,9 @@ python train_lora.py \
 ```
 trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.5023616886417199
 ```
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
 
 ## 🚀 QLoRA
 

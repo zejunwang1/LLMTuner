@@ -140,7 +140,7 @@ python train_lora.py \
     --int8_training True
 ```
 
-```
+```text
 trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.5023616886417199
 ```
 

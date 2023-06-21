@@ -114,6 +114,9 @@ LoRA 的实现流程概述如下：
 
 使用 LoRA 进行单卡训练：
 
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
+
 ```shell
 python train_lora.py \
     --model_type bloom
@@ -144,7 +147,6 @@ python train_lora.py \
 trainable params: 31,457,280 || all params: 6,261,878,784 || trainable%: 0.5023616886417199
 ```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
 
 
 ## 🚀 QLoRA

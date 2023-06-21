@@ -102,18 +102,19 @@ deepspeed --include localhost:0 train.py \
 
 <img src="images/lora1.png" width="250">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
-
-
 LoRA 的实现流程概述如下：
 
 - 在原始预训练语言模型 (PLM) 旁增加一个旁路，做一个先降维再升维的操作，以此来模拟所谓的本征秩 (intrinsic rank)；
 
-- 训练的时候固定 PLM 的参数不变，只训练降维矩阵 $A$ 和升维矩阵 $B$，即优化器只优化右路的参数；
+- 训练的时候固定 PLM 的参数不变，只训练降维矩阵 A 和升维矩阵 B，即优化器只优化右路的参数；
 
 - 模型的输入、输出维度不变，左右两边共用模型的输入，输出时将 PLM 与旁路的输出叠加：h=Wx+BAx
 
-- 用随机高斯分布 $N(0,\sigma^2)$ 初始化 $A$，用全零矩阵初始化 $B$。矩阵 $B$ 的全零初始化，使得在训练最开始的一段时间，右路的结果会接近于0，这样模块的输出就基本上来自于左路，也就是大模型原有参数的计算结果，这使得模型优化的初始点和原始的大模型保持一致。
+- 用零均值随机高斯分布初始化 A，用全零矩阵初始化 B。矩阵 B 的全零初始化，使得在训练最开始的一段时间，右路的结果会接近于0，这样模块的输出就基本上来自于左路，也就是大模型原有参数的计算结果，这使得模型优化的初始点和原始的大模型保持一致。
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)](https://star-history.com/#zejunwang1/LLMTuner&Date)
+
 
 使用 LoRA 进行单卡训练：
 

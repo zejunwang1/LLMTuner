@@ -24,6 +24,8 @@ LLMTuner 是一个支持全量参数微调、LoRA 和 QLoRA 的大语言模型�
 
 - bitsandbytes==0.39.0
 
+- sentencepiece==0.1.99
+
 - transformers @ git+https://github.com/huggingface/transformers.git
 
 - peft @ git+https://github.com/huggingface/peft.git

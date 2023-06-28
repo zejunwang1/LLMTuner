@@ -91,7 +91,8 @@ def get_accelerate_model(model_args, training_args):
         load_in_8bit=training_args.bits == 8,
         device_map=device_map,
         torch_dtype=torch_dtype,
-        quantization_config=quantization_config
+        quantization_config=quantization_config,
+        trust_remote_code=True
     )
     model.config.torch_dtype = torch_dtype
 
@@ -155,8 +156,11 @@ def train():
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
-        padding_side="right"
+        padding_side="right",
+        trust_remote_code=True
     )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.unk_token
     
     data_module = make_supervised_data_module(data_args=data_args, tokenizer=tokenizer)
     trainer = LoraTrainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)

@@ -78,13 +78,17 @@ def train():
         cache_dir=training_args.cache_dir,
         load_in_8bit=training_args.int8_training,
         load_in_4bit=training_args.int4_training,
-        device_map=device_map
+        device_map=device_map,
+        trust_remote_code=True
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
-        padding_side="right"
+        padding_side="right",
+        trust_remote_code=True
     )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.unk_token
     
     # Define LoRA Config
     modules = TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING[model_args.model_type]

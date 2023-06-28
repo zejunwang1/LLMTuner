@@ -49,13 +49,17 @@ def train():
     # Load model and tokenizer
     model = AutoModelForCausalLM.from_pretrained(
         model_args.model_name_or_path,
-        cache_dir=training_args.cache_dir
+        cache_dir=training_args.cache_dir,
+        trust_remote_code=True
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
-        padding_side="right"
+        padding_side="right",
+        trust_remote_code=True
     )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.unk_token
 
     data_module = make_supervised_data_module(data_args=data_args, tokenizer=tokenizer)
     trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)

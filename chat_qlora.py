@@ -7,12 +7,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 def main(args):
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name_or_path, 
         #load_in_4bit=True,
         low_cpu_mem_usage=True,
-        torch_dtype=torch.float16
+        torch_dtype=torch.float16,
+        trust_remote_code=True
     )
     model = PeftModel.from_pretrained(model, args.adapter_name_or_path)
     model.to(device)

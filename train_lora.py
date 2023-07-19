@@ -105,6 +105,10 @@ def train():
     # cast all non INT8 parameters to fp32
     model = prepare_model_for_kbit_training(model, 
         use_gradient_checkpointing=training_args.gradient_checkpointing)
+
+    if training_args.gradient_checkpointing:
+        model.enable_input_require_grads()
+        model.gradient_checkpointing_enable()
     
     # Get our peft model and print the number of trainable parameters
     checkpoint_dir = training_args.resume_from_checkpoint

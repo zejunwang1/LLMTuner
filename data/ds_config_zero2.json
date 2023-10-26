@@ -1,5 +1,5 @@
 {
-	"fp16": {
+    "fp16": {
         "enabled": "auto",
         "loss_scale": 0,
         "loss_scale_window": 1000,
@@ -11,7 +11,7 @@
         "enabled": "auto"
     },
 
-	"optimizer": {
+    "optimizer": {
         "type": "AdamW",
         "params": {
             "lr": "auto",
@@ -21,7 +21,7 @@
         }
     },
 
-	"scheduler": {
+    "scheduler": {
         "type": "WarmupLR",
         "params": {
             "warmup_min_lr": "auto",
@@ -30,7 +30,7 @@
         }
     },
 
-	"zero_optimization": {
+    "zero_optimization": {
         "stage": 2,
         "offload_optimizer": {
             "device": "cpu",
@@ -43,8 +43,8 @@
         "reduce_bucket_size": 2e8,
         "contiguous_gradients": true
     },
-	
-	"gradient_accumulation_steps": "auto",
+
+    "gradient_accumulation_steps": "auto",
     "gradient_clipping": "auto",
     "steps_per_print": 100,
     "train_batch_size": "auto",

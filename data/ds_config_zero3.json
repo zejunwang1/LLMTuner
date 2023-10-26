@@ -1,5 +1,5 @@
 {
-	"fp16": {
+    "fp16": {
         "enabled": "auto",
         "loss_scale": 0,
         "loss_scale_window": 1000,
@@ -10,8 +10,8 @@
     "bf16": {
         "enabled": "auto"
     },
-	
-	"optimizer": {
+
+    "optimizer": {
         "type": "AdamW",
         "params": {
             "lr": "auto",
@@ -20,8 +20,8 @@
             "weight_decay": "auto"
         }
     },
-	
-	"scheduler": {
+
+    "scheduler": {
         "type": "WarmupLR",
         "params": {
             "warmup_min_lr": "auto",
@@ -29,8 +29,8 @@
             "warmup_num_steps": "auto"
         }
     },
-	
-	"zero_optimization": {
+
+    "zero_optimization": {
         "stage": 3,
         "offload_optimizer": {
             "device": "cpu",
@@ -50,8 +50,8 @@
         "stage3_max_reuse_distance": 1e9,
         "stage3_gather_16bit_weights_on_model_save": true
     },
-	
-	"gradient_accumulation_steps": "auto",
+
+    "gradient_accumulation_steps": "auto",
     "gradient_clipping": "auto",
     "steps_per_print": 100,
     "train_batch_size": "auto",

@@ -20,7 +20,7 @@ python tuner/train_lora.py \
 	--save_steps 10 \
 	--save_total_limit 1 \
 	--bf16 True \
-    --tf32 True \
+  --tf32 True \
 	--report_to "tensorboard" \
 	--gradient_checkpointing True \
 	--optim "paged_adamw_32bit" \

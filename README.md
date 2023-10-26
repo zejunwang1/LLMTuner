@@ -275,7 +275,7 @@ deepspeed --include localhost:0 tuner/train_full.py \
 ```shell
 deepspeed --include localhost:0 tuner/train_full.py \
     --model_type llama \
-    --model_name_or_path /root/autodl-tmp/models/TinyLlama-1.1B-intermediate-step-480k-1T/ \
+    --model_name_or_path /path/to/TinyLlama-1.1B-intermediate-step-480k-1T/ \
     --data_path data/dummy.jsonl \
     --output_dir dummy_output \
     --max_length 1024 \

@@ -1,6 +1,6 @@
 python tuner/train_lora.py \
 	--model_type llama \
-	--model_name_or_path /root/autodl-tmp/models/Llama-2-7b/ \
+	--model_name_or_path /path/to/Llama-2-7b-hf/ \
 	--target_modules "q_proj,k_proj,v_proj,o_proj" \
 	--data_path data/dummy.jsonl \
 	--output_dir dummy_output \

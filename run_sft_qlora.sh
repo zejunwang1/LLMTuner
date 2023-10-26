@@ -1,6 +1,6 @@
 python tuner/train_qlora.py \
 	--model_type baichuan \
-	--model_name_or_path /root/autodl-tmp/models/Baichuan2-7B-Base/ \
+	--model_name_or_path /path/to/Baichuan2-7B-Base/ \
 	--data_path data/dummy.jsonl \
 	--output_dir dummy_output \
 	--max_length 2048 \

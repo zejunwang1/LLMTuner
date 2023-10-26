@@ -360,4 +360,7 @@ python tuner/train_qlora.py \
 }
 ```
 
+## ⭐️ Star History
+
+![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)
 

@@ -1,0 +1,26 @@
+deepspeed --include localhost:0 tuner/train_full.py \
+	--model_type llama \
+	--model_name_or_path /root/autodl-tmp/models/TinyLlama-1.1B-intermediate-step-480k-1T/ \
+	--data_path data/dummy.jsonl \
+	--output_dir dummy_output \
+	--max_length 1024 \
+	--use_flash_attn True \
+	--use_xformers_attn False \
+	--per_device_train_batch_size 1 \
+	--gradient_accumulation_steps 16 \
+	--max_grad_norm 1.0 \
+	--learning_rate 2e-5 \
+	--weight_decay 0. \
+	--num_train_epochs 1 \
+	--lr_scheduler_type "cosine" \
+	--warmup_ratio 0.03 \
+	--logging_steps 5 \
+	--save_strategy "steps" \
+	--save_steps 10 \
+	--save_total_limit 1 \
+	--bf16 True \
+	--tf32 True \
+	--report_to "tensorboard" \
+	--gradient_checkpointing True \
+	--deepspeed data/ds_config_zero2.json
+

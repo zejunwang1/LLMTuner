@@ -1,0 +1,32 @@
+python tuner/train_qlora.py \
+	--model_type baichuan \
+	--model_name_or_path /root/autodl-tmp/models/Baichuan2-7B-Base/ \
+	--data_path data/dummy.jsonl \
+	--output_dir dummy_output \
+	--max_length 2048 \
+	--per_device_train_batch_size 2 \
+	--gradient_accumulation_steps 8 \
+	--use_flash_attn False \
+	--use_xformers_attn False \
+	--max_grad_norm 0.3 \
+	--learning_rate 1e-4 \
+	--weight_decay 0. \
+	--num_train_epochs 1 \
+	--lr_scheduler_type "cosine" \
+	--warmup_ratio 0.03 \
+	--logging_steps 5 \
+	--save_strategy "steps" \
+	--save_steps 10 \
+	--save_total_limit 1 \
+	--bf16 True \
+	--tf32 True \
+	--report_to "tensorboard" \
+	--gradient_checkpointing True \
+	--optim "paged_adamw_32bit" \
+	--lora_r 64 \
+	--lora_alpha 16 \
+	--lora_dropout 0.05 \
+	--bits 4 \
+	--double_quant True \
+	--quant_type "nf4"
+

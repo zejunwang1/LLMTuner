@@ -52,7 +52,7 @@ class TrainingArguments(transformers.TrainingArguments):
     lora_alpha: float = field(default=16, metadata={"help": "Lora alpha."})
     lora_dropout: float = field(default=0.05, metadata={"help":"Lora dropout."})
     double_quant: bool = field(
-	default=True,
+        default=True,
         metadata={"help": "Compress the quantization statistics through double quantization."}
     )
     quant_type: str = field(
@@ -180,7 +180,7 @@ def make_supervised_data_module(data_args, training_args, tokenizer):
     train_dataset = Dataset(
         data_path=data_args.data_path,
         tokenizer=tokenizer,
-	task_finetune=training_args.task_finetune,
+        task_finetune=training_args.task_finetune,
         task_prompt=training_args.task_prompt,
         max_length=data_args.max_length
     )

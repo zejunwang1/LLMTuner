@@ -37,7 +37,7 @@
             "pin_memory": true
         },
         "offload_param": {
-            "device": "none",
+            "device": "cpu",
             "pin_memory": true
         },
         "overlap_comm": true,

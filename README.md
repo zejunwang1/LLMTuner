@@ -235,7 +235,7 @@ python tuner/train_lora.py \
     --lora_alpha 16 \
     --lora_dropout 0.05 \
     --bits 16 \
-    --additional_trainable_params "embed,norm"
+    --additional_trainable_params "None"
 ```
 
 通过设置`--additional_trainable_params`选项可增加微调过程中的可训练参数。

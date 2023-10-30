@@ -15,7 +15,7 @@ def load_task_dataset(data_path, tokenizer, task_prompt=None, max_length=1024):
         for line in tqdm(handle, desc="processing"):
             data = json.loads(line.rstrip())
             # tokenization
-            source_ids = tokenizer(task_prompt.format(data["source"])).input_ids
+            source_ids = tokenizer(task_prompt.format(data["source"]) if task_prompt else data["source"]).input_ids
             target_ids = tokenizer(data["target"]).input_ids
             input_ids = source_ids + [tokenizer.eos_token_id] + target_ids + [tokenizer.eos_token_id]
             source_len = len(source_ids) + 1

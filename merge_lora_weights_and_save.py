@@ -30,7 +30,6 @@ def merge_and_save(args):
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         args.base_model,
         cache_dir=args.cache_dir,
-        padding_side="right",
         trust_remote_code=True
     )
     # merge lora weights and save hf model    

@@ -31,6 +31,16 @@ def merge_and_save(args):
         cache_dir=args.cache_dir,
         trust_remote_code=True
     )
+    if tokenizer.__class__.__name__ == 'QWenTokenizer':
+        tokenizer.bos_token = '<|im_start|>'
+        tokenizer.eos_token = '<|im_end|>'
+        tokenizer.pad_token_id = tokenizer.eod_id
+    elif tokenizer.pad_token_id is None:
+        assert tokenizer.bos_token_id is not None
+        assert tokenizer.eos_token_id is not None
+        tokenizer.pad_token_id = tokenizer.unk_token_id if tokenizer.unk_token_id is not None \
+            else tokenizer.eos_token_id
+
     # merge lora weights and save hf model    
     model = PeftModel.from_pretrained(model, args.peft_model, device_map=device_map)
     model = model.merge_and_unload()

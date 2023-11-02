@@ -11,7 +11,6 @@ def parse_args():
     parser.add_argument("--peft_model", type=str, required=True)
     parser.add_argument("--save_dir", type=str, required=True)
     parser.add_argument("--cache_dir", type=str, default=None)
-    parser.add_argument("--bf16", action="store_true")
     parser.add_argument("--device", type=str, choices=["cpu", "cuda"], default="cuda")
     args = parser.parse_args()
     return args
@@ -19,7 +18,7 @@ def parse_args():
 def merge_and_save(args):
     device_map = {"": 0} if args.device == "cuda" else {"": "cpu"}
     # load base model and tokenizer
-    torch_dtype = torch.bfloat16 if args.bf16 and torch.cuda.is_bf16_supported() else torch.float16
+    torch_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     model = transformers.AutoModelForCausalLM.from_pretrained(
         args.base_model,
         cache_dir=args.cache_dir,

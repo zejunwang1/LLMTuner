@@ -50,7 +50,8 @@ def main(args):
             print("Assistant: {}\n".format(response.strip().replace("</s>", "")))
 
             history += response_ids.tolist()
-            history += [tokenizer.eos_token_id]
+            if history[-1] != tokenizer.eos_token_id:
+                history.append(tokenizer.eos_token_id)
     else:
         while True:
             text = input("用户: ")

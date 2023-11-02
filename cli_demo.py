@@ -36,7 +36,6 @@ def main(args):
     )
     
     print("clear清空历史对话, quit/stop退出")
-    prompt = "{}" + tokenizer.eos_token
     history = []
     if args.multi_round:
         while True:
@@ -46,7 +45,8 @@ def main(args):
             if text == "clear":
                 history = []
                 continue
-            history += tokenizer(prompt.format(text)).input_ids
+            history += tokenizer(text).input_ids
+            history.append(tokenizer.eos_token_id)
             history = history[-args.history_max_tokens:]
             input_ids = torch.tensor([history], device=model.device)
             outputs = model.generate(
@@ -62,8 +62,8 @@ def main(args):
             
             input_ids_len = input_ids.size(1)
             response_ids = outputs[0][input_ids_len: ]
-            response = tokenizer.decode(response_ids)
-            print("Assistant: {}\n".format(response.replace(tokenizer.eos_token, "")))
+            response = tokenizer.decode(response_ids, skip_special_tokens=True)
+            print("Assistant: {}\n".format(response))
             
             history += response_ids.tolist()
             if history[-1] != tokenizer.eos_token_id:
@@ -73,8 +73,9 @@ def main(args):
             text = input("User: ")
             if text == "stop" or text == "quit":
                 break
-            input_ids = tokenizer(prompt.format(text), return_tensors="pt").input_ids
-            input_ids = input_ids.to(model.device)
+            input_ids = tokenizer(text).input_ids
+            input_ids.append(tokenizer.eos_token_id)
+            input_ids = torch.tensor([input_ids], device=model.device)
             outputs = model.generate(
                 input_ids,
                 do_sample=True,
@@ -88,8 +89,8 @@ def main(args):
             
             input_ids_len = input_ids.size(1)
             response_ids = outputs[0][input_ids_len: ]
-            response = tokenizer.decode(response_ids)
-            print("Assistant: {}\n".format(response.replace(tokenizer.eos_token, "")))
+            response = tokenizer.decode(response_ids, skip_special_tokens=True)
+            print("Assistant: {}\n".format(response))
 
 if __name__ == "__main__":
     args = parse_args()

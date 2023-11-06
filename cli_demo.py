@@ -67,7 +67,7 @@ def main(args):
                 repetition_penalty=args.repetition_penalty
             )
             
-            response_ids = outputs[0][len(input_ids[0]): ]
+            response_ids = outputs[0][len(history[0]): ]
             response = tokenizer.decode(response_ids, skip_special_tokens=True)
             print("Assistant: {}\n".format(response))
             

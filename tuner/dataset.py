@@ -45,7 +45,7 @@ def load_instruction_dataset(data_path, tokenizer, max_length=1024):
                 chat_ids = [tokenizer.bos_token_id] + q_ids + [tokenizer.eos_token_id] + \
                            [tokenizer.bos_token_id] + a_ids + [tokenizer.eos_token_id]
                 ignore_len = len(q_ids) + 3
-                chat_labels = [IGNORE_INDEX] * q_len + a_ids + [tokenizer.eos_token_id]
+                chat_labels = [IGNORE_INDEX] * ignore_len + a_ids + [tokenizer.eos_token_id]
                 input_ids += chat_ids
                 labels += chat_labels
             # truncation

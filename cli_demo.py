@@ -48,7 +48,7 @@ def main(args):
                 history = []
                 continue
             input_ids = [tokenizer.bos_token_id]
-            input_ids.extend(tokenizer.encode(prompt.format(text) if prompt is not None else text))
+            input_ids.extend(tokenizer.encode(text))
             input_ids.append(tokenizer.eos_token_id)
             input_ids.append(tokenizer.bos_token_id)
             input_ids = torch.tensor([input_ids], device=model.device)

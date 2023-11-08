@@ -5,7 +5,7 @@
 - 将指令微调的多轮对话输入数据从如下形式
 
 ```context
-{human}</s>{assistant}</s>{human}</s>{assistant}
+{human}</s>{assistant}</s>{human}</s>{assistant}</s>
 ```
 
 更改为

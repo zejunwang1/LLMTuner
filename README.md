@@ -95,7 +95,7 @@ pip install csrc/rotary
 对于指令微调，LLMTuner 按照如下格式对多轮对话数据进行 tokenize
 
 ```context
-<s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>
+<s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>
 ```
 
 ### 特定任务数据

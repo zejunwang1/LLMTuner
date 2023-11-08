@@ -1,5 +1,31 @@
 # LLMTuner: 大语言模型指令调优工具
 
+## 最近更新
+
+将指令微调的多轮对话输入数据从如下形式
+
+```shell
+{human}</s>{assistant}</s>{human}</s>{assistant}
+```
+
+更改为
+
+```shell
+<s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>
+```
+
+将特定任务微调的输入数据从如下形式
+
+```shell
+{source}</s>{target}</s>
+```
+
+更改为
+
+```shell
+<s>{source}</s><s>{target}</s>
+```
+
 ## 项目介绍
 
 LLMTuner 是一个支持 LoRA、QLoRA 和全量参数微调的大语言模型指令调优工具。在训练中可以使用 **flash attention**、**xformers attention** 技术提升训练效率，并结合 **LoRA**、 **DeepSpeed ZeRO**、**gradient checkpointing** 和 **4-bit 量化**等技术，有效降低显存占用，实现在单张消费级显卡 (A100/A40/A30/RTX3090/V100) 上微调 7B/13B/34B 大模型。

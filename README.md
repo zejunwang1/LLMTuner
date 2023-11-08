@@ -92,6 +92,12 @@ pip install csrc/rotary
 | [WangZeJun/moss-003-sft-30w](https://huggingface.co/datasets/WangZeJun/moss-003-sft-30w) | 约30万条多轮对话数据，根据 moss-003-sft-data 采样得到   |
 | [WangZeJun/moss-003-sft-21w](https://huggingface.co/datasets/WangZeJun/moss-003-sft-21w) | 约21万条多轮对话数据，根据 moss-003-sft-data 采样得到   |
 
+对于指令微调，LLMTuner 按照如下格式对多轮对话数据进行 tokenize
+
+```context
+<s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>
+```
+
 ### 特定任务数据
 
 以广告文案生成任务为例，微调的训练数据需为 jsonl 格式，每一行必须包含 source 和 target 两个字段，可参考 data/task_dummy.jsonl 文件。
@@ -101,6 +107,12 @@ pip install csrc/rotary
     "source": "类型#裤*版型#宽松*风格#性感*图案#线条*裤型#阔腿裤", 
     "target": "宽松的阔腿裤这两年真的吸粉不少，明星时尚达人的心头爱。毕竟好穿时尚，谁都能穿出腿长2米的效果宽松的裤腿，当然是遮肉小能手啊。上身随性自然不拘束，面料亲肤舒适贴身体验感棒棒哒。系带部分增加设计看点，还让单品的设计感更强。腿部线条若隐若现的，性感撩人。颜色敲温柔的，与裤子本身所呈现的风格有点反差萌。"
 }
+```
+
+对于特定任务微调，LLMTuner 按照如下格式对输入数据进行 tokenize
+
+```context
+<s>{prompt}{source}</s><s>{target}</s>
 ```
 
 ## 模型训练
@@ -345,6 +357,45 @@ python tuner/train_qlora.py \
     --quant_type "nf4"
 ```
 
+## 模型推理
+
+### 合并 LoRA 权重
+
+```shell
+python inference/merge_lora_weights_and_save.py
+usage: merge_lora_weights_and_save.py [-h] --base_model BASE_MODEL --peft_model PEFT_MODEL --save_dir SAVE_DIR
+                                      [--cache_dir CACHE_DIR] [--device {cpu,cuda}]
+```
+
+### 代码调用
+
+可通过如下代码调用本项目微调后的模型来生成对话
+
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained("/path/to/model", trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained("/path/to/model", device_map="auto", torch_dtype=torch.bfloat16, trust_remote_code=True)
+
+query = "晚上睡不着怎么办"
+input_ids = [tokenizer.bos_token_id]
+input_ids.extend(tokenizer.encode(query))
+input_ids.append(tokenizer.eos_token_id)
+input_ids.append(tokenizer.bos_token_id)
+input_ids = torch.tensor([input_ids], device=model.device)
+
+outputs = model.generate(input_ids, do_sample=True, top_p=0.85, top_k=8, temperature=0.3, max_new_tokens=512, eos_token_id=tokenizer.eos_token_id, repetition_penalty=1.1)
+response_ids = outputs[0][len(input_ids[0]): ]
+response = tokenizer.decode(response_ids, skip_special_tokens=True)
+print(response)
+```
+
+### 命令行工具方式
+
+```shell
+python inference/cli_demo.py
+```
+
 ## 引用
 
 若使用本项目的数据或代码，请引用本项目。
@@ -363,4 +414,3 @@ python tuner/train_qlora.py \
 ## ⭐️ Star History
 
 ![Star History Chart](https://api.star-history.com/svg?repos=zejunwang1/LLMTuner&type=Date)
-

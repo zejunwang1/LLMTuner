@@ -15,11 +15,13 @@ def load_task_dataset(data_path, tokenizer, task_prompt=None, max_length=1024):
         for line in tqdm(handle, desc="processing"):
             data = json.loads(line.rstrip())
             # tokenization
-            source_ids = tokenizer(task_prompt.format(data["source"]) if task_prompt else data["source"]).input_ids
-            target_ids = tokenizer(data["target"]).input_ids
-            input_ids = source_ids + [tokenizer.eos_token_id] + target_ids + [tokenizer.eos_token_id]
-            source_len = len(source_ids) + 1
-            labels = [IGNORE_INDEX] * source_len + target_ids + [tokenizer.eos_token_id]
+            # f"<s>{source}</s><s>{target}</s>"
+            source_ids = tokenizer.encode(task_prompt.format(data["source"]) if task_prompt else data["source"])
+            target_ids = tokenizer.encode(data["target"]) + [tokenizer.eos_token_id]
+            input_ids = [tokenizer.bos_token_id] + source_ids + [tokenizer.eos_token_id] + \
+                        [tokenizer.bos_token_id] + target_ids + [tokenizer.eos_token_id]
+            ignore_len = len(source_ids) + 3
+            labels = [IGNORE_INDEX] * ignore_len + target_ids + [tokenizer.eos_token_id]
             # truncation
             if len(input_ids) > max_length:
                 input_ids = input_ids[: max_length]
@@ -36,12 +38,14 @@ def load_instruction_dataset(data_path, tokenizer, max_length=1024):
             input_ids = []
             labels = []
             # multiple rounds of dialogue
+            # f"<s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>"
             for chat in conversation:
-                q_ids = tokenizer(chat["human"]).input_ids
-                a_ids = tokenizer(chat["assistant"]).input_ids
-                chat_ids = q_ids + [tokenizer.eos_token_id] + a_ids + [tokenizer.eos_token_id]
-                q_len = len(q_ids) + 1
-                chat_labels = [IGNORE_INDEX] * q_len + a_ids + [tokenizer.eos_token_id]
+                q_ids = tokenizer.encode(chat["human"])
+                a_ids = tokenizer.encode(chat["assistant"])
+                chat_ids = [tokenizer.bos_token_id] + q_ids + [tokenizer.eos_token_id] + \
+                           [tokenizer.bos_token_id] + a_ids + [tokenizer.eos_token_id]
+                ignore_len = len(q_ids) + 3
+                chat_labels = [IGNORE_INDEX] * ignore_len + a_ids + [tokenizer.eos_token_id]
                 input_ids += chat_ids
                 labels += chat_labels
             # truncation

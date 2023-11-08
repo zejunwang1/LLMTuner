@@ -3,19 +3,25 @@
 ## 最近更新
 
 - 将指令微调的多轮对话输入数据从如下形式
+
 ```context
 {human}</s>{assistant}</s>{human}</s>{assistant}
 ```
+
 更改为
+
 ```context
 <s>{human}</s><s>{assistant}</s><s>{human}</s><s>{assistant}</s>
 ```
 
 - 将特定任务微调的输入数据从如下形式
+
 ```context
 {source}</s>{target}</s>
 ```
+
 更改为
+
 ```context
 <s>{source}</s><s>{target}</s>
 ```

@@ -72,7 +72,7 @@ def main(args):
             response = tokenizer.decode(response_ids, skip_special_tokens=True)
             print("Assistant: {}\n".format(response))
             
-            history = torch.concat((history, response_ids), dim=-1)
+            history = torch.concat((history, outputs[:, len(history[0]): ]), dim=-1)
     else:
         while True:
             text = input("User: ")

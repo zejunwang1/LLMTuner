@@ -14,6 +14,7 @@ def parse_args():
     parser.add_argument("--max_input_tokens", type=int, default=2048)
     parser.add_argument("--max_new_tokens", type=int, default=2048)
     parser.add_argument("--temperature", type=float, default=0.3)
+    parser.add_argument("--task_inference", action="store_true")
     parser.add_argument("--task_prompt", type=str, default=None)
     parser.add_argument("--multi_round", action="store_true")
     args = parser.parse_args()
@@ -82,17 +83,25 @@ def main(args):
             input_ids.append(tokenizer.eos_token_id)
             input_ids.append(tokenizer.bos_token_id)
             input_ids = torch.tensor([input_ids], device=model.device)
-
-            outputs = model.generate(
-                input_ids,
-                do_sample=True,
-                top_p=args.top_p,
-                top_k=args.top_k,
-                temperature=args.temperature,
-                max_new_tokens=args.max_new_tokens,
-                eos_token_id=tokenizer.eos_token_id,
-                repetition_penalty=args.repetition_penalty
-            )
+            
+            if args.task_inference:
+                outputs = model.generate(
+                    input_ids,
+                    do_sample=False,
+                    max_new_tokens=args.max_new_tokens,
+                    eos_token_id=tokenizer.eos_token_id
+                )
+            else:
+                outputs = model.generate(
+                    input_ids,
+                    do_sample=True,
+                    top_p=args.top_p,
+                    top_k=args.top_k,
+                    temperature=args.temperature,
+                    max_new_tokens=args.max_new_tokens,
+                    eos_token_id=tokenizer.eos_token_id,
+                    repetition_penalty=args.repetition_penalty
+                )
             
             response_ids = outputs[0][len(input_ids[0]): ]
             response = tokenizer.decode(response_ids, skip_special_tokens=True)

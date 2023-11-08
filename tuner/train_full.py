@@ -114,8 +114,8 @@ def train():
     )
     if tokenizer.__class__.__name__ == 'QWenTokenizer':
         tokenizer.bos_token = '<|im_start|>'
-        tokenizer.eos_token = '<|im_end|>'
-        tokenizer.pad_token_id = tokenizer.eod_id
+        tokenizer.eos_token = '<|endoftext|>'
+        tokenizer.pad_token = '<|im_end|>'
     else:
         assert tokenizer.bos_token_id is not None
         assert tokenizer.eos_token_id is not None

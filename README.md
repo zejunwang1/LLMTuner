@@ -228,6 +228,8 @@ torchrun --nproc_per_node=4 --master_port=20001 tuner/train_qlora.py
 
 [LoRA](https://github.com/microsoft/LoRA) 的核心思想是冻结预训练模型权重，将可训练的秩分解矩阵注入 Transformer 架构 (attention 部分) 的每一层，从而大大减少了下游任务的微调参数量。
 
+![image](data/lora.gif)
+
 使用 LoRA 微调不同基座模型，对应的`target_modules`参考设置如下：
 
 | 模型                    | model_type | target_modules  |

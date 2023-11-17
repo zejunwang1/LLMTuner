@@ -9,15 +9,16 @@ IGNORE_INDEX = -100
 
 def load_task_dataset(data_path, tokenizer, task_prompt=None, max_length=1024):
     output = []
-    if task_prompt:
+    if task_prompt is not None:
         task_prompt += "{}"
     with open(data_path, mode="r", encoding="utf-8") as handle:
         for line in tqdm(handle, desc="processing"):
             data = json.loads(line.rstrip())
             # tokenization
             # f"<s>{source}</s><s>{target}</s>"
-            source_ids = tokenizer.encode(task_prompt.format(data["source"]) if task_prompt else data["source"])
-            target_ids = tokenizer.encode(data["target"]) + [tokenizer.eos_token_id]
+            source = task_prompt.format(data["source"]) if task_prompt is not None else data["source"]
+            source_ids = tokenizer.encode(source)
+            target_ids = tokenizer.encode(data["target"])
             input_ids = [tokenizer.bos_token_id] + source_ids + [tokenizer.eos_token_id] + \
                         [tokenizer.bos_token_id] + target_ids + [tokenizer.eos_token_id]
             ignore_len = len(source_ids) + 3

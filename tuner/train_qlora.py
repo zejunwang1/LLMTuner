@@ -1,5 +1,6 @@
 # coding=utf-8
 
+import os
 import bitsandbytes as bnb
 import transformers
 import torch
@@ -59,10 +60,6 @@ class TrainingArguments(transformers.TrainingArguments):
         default="nf4",
         metadata={"help": "Quantization data type to use. Should be one of `fp4` or `nf4`."}
     )
-    fp32_stability: bool = field(
-        default=False,
-        metadata={"help": "whether cast all non INT8/INT4 parameters to fp32."}
-    )
 
 def find_all_linear_names(model, bits):
     cls = bnb.nn.Linear4bit if bits == 4 else \
@@ -77,21 +74,21 @@ def find_all_linear_names(model, bits):
         lora_module_names.remove('lm_head')
     return list(lora_module_names)
 
-def prepare_model_for_kbit_training(model, training_args):
-    loaded_in_kbit = (training_args.bits in [4, 8])
+def prepare_model_for_kbit_training(model, use_gradient_checkpointing=True, use_flash_attn=False):
+    loaded_in_kbit = getattr(model, "is_loaded_in_8bit", False) or getattr(model, "is_loaded_in_4bit", False)
     is_gptq_quantized = getattr(model, "quantization_method", None) == "gptq"
 
     for name, param in model.named_parameters():
         # freeze base model's layers
         param.requires_grad = False
     
-    if training_args.fp32_stability and not training_args.use_flash_attn and not is_gptq_quantized:
+    if not use_flash_attn and not is_gptq_quantized:
         # cast all non INT8 parameters to fp32
         for param in model.parameters():
             if (param.dtype == torch.float16) or (param.dtype == torch.bfloat16):
                 param.data = param.data.to(torch.float32)
     
-    if (loaded_in_kbit or is_gptq_quantized) and training_args.gradient_checkpointing:
+    if (loaded_in_kbit or is_gptq_quantized) and use_gradient_checkpointing:
         # For backward compatibility
         if hasattr(model, "enable_input_require_grads"):
             model.enable_input_require_grads()
@@ -107,8 +104,10 @@ def prepare_model_for_kbit_training(model, training_args):
 
 def get_accelerate_model(model_args, training_args):
     # DDP
-    device_map = "auto"
-    if training_args.local_rank != -1:
+    device_map = None
+    world_size = int(os.environ.get("WORLD_SIZE", 1))
+    ddp = world_size != 1
+    if ddp:
         device_map = {"": training_args.local_rank}
    
     config = AutoConfig.from_pretrained(
@@ -147,7 +146,11 @@ def get_accelerate_model(model_args, training_args):
     
     # prepare model for kbit training
     if training_args.bits in [4, 8]:
-        prepare_model_for_kbit_training(model, training_args)
+        prepare_model_for_kbit_training(
+            model, 
+            use_gradient_checkpointing=training_args.gradient_checkpointing,
+            use_flash_attn=training_args.use_flash_attn
+        )
     
     if training_args.gradient_checkpointing:
         model.config.use_cache = False

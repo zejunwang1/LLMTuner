@@ -221,7 +221,9 @@ python tuner/train_qlora.py \
 
 ```shell
 export CUDA_VISIBLE_DEVICES=0,1,2,3
-torchrun --nproc_per_node=4 --master_port=20001 tuner/train_qlora.py --ddp_find_unused_parameters False ...
+torchrun --nproc_per_node=4 --master_port=20001 tuner/train_qlora.py \
+    --ddp_find_unused_parameters False \
+    ...
 ```
 
 ### LoRA
@@ -344,7 +346,9 @@ deepspeed --include localhost:0 tuner/train_full.py \
 
 ```shell
 export CUDA_VISIBLE_DEVICES=0,1,2,3
-deepspeed --include localhost:0,1,2,3 tuner/train_full.py --ddp_find_unused_parameters False ...
+deepspeed --include localhost:0,1,2,3 tuner/train_full.py \
+    --ddp_find_unused_parameters False \
+    ...
 ```
 
 ### 特定任务微调

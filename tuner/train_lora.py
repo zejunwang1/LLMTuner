@@ -85,7 +85,7 @@ def prepare_model_for_kbit_training(model, use_gradient_checkpointing=True, use_
 
 def get_accelerate_model(model_args, training_args):
     # DDP
-    device_map = None
+    device_map = "auto"
     world_size = int(os.environ.get("WORLD_SIZE", 1))
     ddp = world_size != 1
     if ddp:

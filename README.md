@@ -409,14 +409,19 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained("/path/to/model", trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained("/path/to/model", device_map="auto", torch_dtype=torch.bfloat16, trust_remote_code=True)
 
+bos_token_id = tokenizer.bos_token_id
+eos_token_id = tokenizer.eos_token_id
+if tokenizer.__class__.__name__ == "ChatGLMTokenizer":
+    bos_token_id = tokenizer.get_command("<bos>")
+
 query = "晚上睡不着怎么办"
-input_ids = [tokenizer.bos_token_id]
-input_ids.extend(tokenizer.encode(query))
-input_ids.append(tokenizer.eos_token_id)
-input_ids.append(tokenizer.bos_token_id)
+input_ids = [bos_token_id]
+input_ids.extend(tokenizer.encode(query, add_special_tokens=False))
+input_ids.append(eos_token_id)
+input_ids.append(bos_token_id)
 input_ids = torch.tensor([input_ids], device=model.device)
 
-outputs = model.generate(input_ids, do_sample=True, top_p=0.85, top_k=8, temperature=0.3, max_new_tokens=512, eos_token_id=tokenizer.eos_token_id, repetition_penalty=1.1)
+outputs = model.generate(input_ids, do_sample=True, top_p=0.85, top_k=8, temperature=0.3, max_new_tokens=512, eos_token_id=eos_token_id, repetition_penalty=1.1)
 response_ids = outputs[0][len(input_ids[0]): ]
 response = tokenizer.decode(response_ids, skip_special_tokens=True)
 print(response)

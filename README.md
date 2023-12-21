@@ -38,6 +38,8 @@ LLMTuner 是一个支持 LoRA、QLoRA 和全量参数微调的大语言模型指
 
 - Baichuan & Baichuan 2 (`baichuan-inc/Baichuan-7B`, `baichuan-inc/Baichuan-13B-Base`, `baichuan-inc/Baichuan2-7B-Base`, `baichuan-inc/Baichuan2-13B-Base`, etc.)
 
+- ChatGLM3 (`THUDM/chatglm3-6b-base`)
+
 - BLOOM & BLOOMZ (`bigscience/bloom`, `bigscience/bloomz`, etc.)
 
 - InternLM (`internlm/internlm-7b`, `internlm/internlm-20b`, etc.)

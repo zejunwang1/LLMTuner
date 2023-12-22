@@ -9,7 +9,7 @@ def parse_args():
     parser.add_argument("--model_name_or_path", type=str, required=True)
     parser.add_argument("--cache_dir", type=str, default=None)
     parser.add_argument("--top_p", type=float, default=0.85)
-    parser.add_argument("--top_k", type=int, default=8)
+    parser.add_argument("--top_k", type=int, default=0)
     parser.add_argument("--repetition_penalty", type=float, default=1.1)
     parser.add_argument("--max_input_tokens", type=int, default=2048)
     parser.add_argument("--max_new_tokens", type=int, default=2048)

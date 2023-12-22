@@ -1,6 +1,6 @@
 ninja
 scipy
-tensorboardX
+tensorboard
 torch == 2.0.1
 tiktoken == 0.5.1
 transformers == 4.32.0

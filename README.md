@@ -66,7 +66,7 @@ LLMTuner 是一个支持 LoRA、QLoRA 和全量参数微调的大语言模型指
 
 - xformers == 0.0.22
 
-- tensorboardX
+- tensorboard
 
 推荐安装 [flash attention](https://github.com/Dao-AILab/flash-attention) 提高训练效率：
 

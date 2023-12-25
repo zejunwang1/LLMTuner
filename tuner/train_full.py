@@ -116,7 +116,7 @@ def train():
         tokenizer.bos_token = '<|im_start|>'
         tokenizer.eos_token = '<|endoftext|>'
         tokenizer.pad_token = '<|im_end|>'
-    else:
+    elif tokenizer.__class__.__name__ != 'ChatGLMTokenizer':
         assert tokenizer.bos_token_id is not None
         assert tokenizer.eos_token_id is not None
         if tokenizer.pad_token_id is None:

@@ -7,6 +7,19 @@ from tqdm import tqdm
 
 IGNORE_INDEX = -100
 
+def load_t5_dataset(data_path, tokenizer, task_prompt=None, max_source_length=512, max_target_length=512):
+    output = []
+    if task_prompt is not None:
+        task_prompt += "{}"
+    with open(data_path, mode="r", encoding="utf-8") as handle:
+        for line in tqdm(handle, desc="processing"):
+            data = json.loads(line.strip())
+            source = task_prompt.format(data["source"]) if task_prompt is not None else data["source"]
+            input_ids = tokenizer.encode(source, max_length=max_source_length, truncation=True)
+            labels = tokenizer.encode(data["target"], max_length=max_target_length, truncation=True)
+            output.append(dict(input_ids=input_ids, labels=labels))
+    return output
+
 def load_task_dataset(data_path, tokenizer, task_prompt=None, max_length=1024):
     output = []
     bos_token_id = tokenizer.bos_token_id
@@ -17,7 +30,7 @@ def load_task_dataset(data_path, tokenizer, task_prompt=None, max_length=1024):
         task_prompt += "{}"
     with open(data_path, mode="r", encoding="utf-8") as handle:
         for line in tqdm(handle, desc="processing"):
-            data = json.loads(line.rstrip())
+            data = json.loads(line.strip())
             # tokenization
             # f"<s>{source}</s><s>{target}</s>"
             source = task_prompt.format(data["source"]) if task_prompt is not None else data["source"]
@@ -42,7 +55,7 @@ def load_instruction_dataset(data_path, tokenizer, max_length=1024):
         bos_token_id = tokenizer.get_command("<bos>")
     with open(data_path, mode="r", encoding="utf-8") as handle:
         for line in tqdm(handle, desc="processing"):
-            data = json.loads(line.rstrip())
+            data = json.loads(line.strip())
             conversation = data["conversation"]
             input_ids = []
             labels = []
@@ -80,6 +93,25 @@ class Dataset(torch.utils.data.Dataset):
         """
         return len(self.data)
     
+    def __getitem__(self, index):
+        """
+        Basic function of `Dataset` to get sample from dataset with a given index.
+        """
+        return self.data[index]
+
+class T5Dataset(torch.utils.data.Dataset):
+    def __init__(
+        self, data_path, tokenizer, task_prompt=None, max_source_length=512, max_target_length=512
+    ):
+        super(Dataset, self).__init__()
+        self.data = load_t5_dataset(data_path, tokenizer, task_prompt, max_source_length, max_target_length)
+
+    def __len__(self):
+        """
+        Returns the number of samples in dataset.
+        """
+        return len(self.data)
+
     def __getitem__(self, index):
         """
         Basic function of `Dataset` to get sample from dataset with a given index.

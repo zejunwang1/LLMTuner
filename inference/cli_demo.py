@@ -26,6 +26,11 @@ def main(args):
         cache_dir=args.cache_dir,
         trust_remote_code=True
     )
+    bos_token_id = tokenizer.bos_token_id
+    eos_token_id = tokenizer.eos_token_id
+    if tokenizer.__class__.__name__ == "ChatGLMTokenizer":
+        bos_token_id = tokenizer.get_command("<bos>")
+
     device_map = {"": 0} if torch.cuda.is_available() else {"": "cpu"}
     torch_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     model = transformers.AutoModelForCausalLM.from_pretrained(
@@ -47,10 +52,10 @@ def main(args):
             if text == "clear":
                 history = []
                 continue
-            input_ids = [tokenizer.bos_token_id]
-            input_ids.extend(tokenizer.encode(text))
-            input_ids.append(tokenizer.eos_token_id)
-            input_ids.append(tokenizer.bos_token_id)
+            input_ids = [bos_token_id]
+            input_ids.extend(tokenizer.encode(text, add_special_tokens=False))
+            input_ids.append(eos_token_id)
+            input_ids.append(bos_token_id)
             input_ids = torch.tensor([input_ids], device=model.device)
             history = input_ids if len(history) == 0 else torch.concat((history, input_ids), dim=-1)
             # truncate left
@@ -77,10 +82,12 @@ def main(args):
             text = input("User: ")
             if text == "stop" or text == "quit":
                 break
-            input_ids = [tokenizer.bos_token_id]
-            input_ids.extend(tokenizer.encode(prompt.format(text) if prompt is not None else text))
-            input_ids.append(tokenizer.eos_token_id)
-            input_ids.append(tokenizer.bos_token_id)
+            input_ids = [bos_token_id]
+            if prompt is not None:
+                text = prompt.format(text)
+            input_ids.extend(tokenizer.encode(text, add_special_tokens=False))
+            input_ids.append(eos_token_id)
+            input_ids.append(bos_token_id)
             input_ids = torch.tensor([input_ids], device=model.device)
             
             outputs = model.generate(

@@ -137,6 +137,6 @@ class DataCollator:
         return dict(
             input_ids=input_ids,
             labels=labels,
-            attention_mask=input_ids.ne(self.pad_token_id)
+            attention_mask=input_ids.ne(self.pad_token_id).long()
         )
 

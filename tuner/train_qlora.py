@@ -226,7 +226,7 @@ def train():
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
-        padding_side="right",
+        #padding_side="right",
         trust_remote_code=True
     )
     if tokenizer.__class__.__name__ == 'QWenTokenizer':

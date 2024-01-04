@@ -351,7 +351,6 @@ deepspeed --include localhost:0 tuner/train_full.py \
 ```shell
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 deepspeed --include localhost:0,1,2,3 tuner/train_full.py \
-    --ddp_find_unused_parameters False \
     ...
 ```
 
